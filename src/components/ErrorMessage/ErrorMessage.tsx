@@ -1,9 +1,7 @@
+import React from "react";
 
+const ErrorMessage: React.FC = () => {
+  return <div>Whops, something is wrong</div>;
+};
 
-const ErrorMessage = () => {
-  return (
-    <div>Whops, something is wrong</div>
-  )
-}
-
-export default ErrorMessage
+export default ErrorMessage;

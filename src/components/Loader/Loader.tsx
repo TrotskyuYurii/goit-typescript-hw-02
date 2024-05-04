@@ -1,13 +1,13 @@
-import { Hourglass } from "react-loader-spinner";
+import React from 'react';
+import { Hourglass } from 'react-loader-spinner';
 
-const Loader = () => {
-
+const Loader: React.FC = () => {
   return (
     <div>
       <Hourglass
         visible={true}
-        height="80"
-        width="80"
+        height={80}
+        width={80}
         ariaLabel="hourglass-loading"
         wrapperStyle={{}}
         wrapperClass=""
@@ -17,4 +17,4 @@ const Loader = () => {
   );
 };
 
-export default Loader
+export default Loader;

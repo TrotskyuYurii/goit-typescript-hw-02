@@ -1,10 +1,17 @@
+import React from 'react';
 import Modal from 'react-modal';
 
-const ImageModal = ({ imageUrl, modalIsOpen, onRequestClose }) => {
+interface ImageModalProps {
+  imageUrl: string;
+  modalIsOpen: boolean;
+  onRequestClose: () => void;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, modalIsOpen, onRequestClose }) => {
   
   Modal.setAppElement('#root');
 
-  const customStyles = {
+  const customStyles: Modal.Styles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)' 
     },
@@ -21,7 +28,7 @@ const ImageModal = ({ imageUrl, modalIsOpen, onRequestClose }) => {
     },
   };
 
-  const modalImageStyles = {
+  const modalImageStyles: React.CSSProperties = {
     maxWidth: "100%",
     maxHeight: "100%",
     objectFit: "contain",
