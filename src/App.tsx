@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
-import "./App.css";
+import { useState, useEffect } from "react";
+
 import { requestProductsByQuery } from "./services/api";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Loader from "./components/Loader/Loader";
@@ -8,19 +8,13 @@ import ImageGallery from './components/ImageGallery/ImageGallery';
 import ImageModal from "./components/ImageModal/ImageModal";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
+import { ImageData } from "./App.types";
+
+import "./App.css";
+
 
 
 function App() {
-
-  interface ImageData {
-    id: string;
-    alt_description: string;
-    urls: {
-        small: string;
-        regular: string;
-    };
-}
-
 
   const [isLoad, setisLoad] = useState<boolean>(false);
   const [isError, setisError] = useState<boolean>(false);
