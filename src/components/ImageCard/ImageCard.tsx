@@ -2,7 +2,7 @@ import css from "../ImageCard/ImageCard.module.css";
 
 const ImageCard = ({smallImage, alt_description, onClickOnImage, bigImage}) => {
 
-  const handleClick = () => {
+  const handleClick: React.MouseEventHandler<HTMLImageElement> = () => {
     // console.log(bigImage);
     onClickOnImage(bigImage); // Передача URL зображення при кліці
   };

@@ -9,14 +9,26 @@ import ImageModal from "./components/ImageModal/ImageModal";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
 function App() {
-  const [isLoad, setisLoad] = useState(false);
-  const [isError, setisError] = useState(false);
-  const [searchImage, setSearchImage] = useState("");
-  const [imagesData, setimagesData] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedImageUrl, setSelectedImageUrl] = useState("");
-  const [totalImageOnApi, setTotalImageOnApi] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+
+
+  interface ImageData {
+    id: string;
+    alt_description: string;
+    urls: {
+        small: string;
+        regular: string;
+    };
+}
+
+
+  const [isLoad, setisLoad] = useState<boolean>(false);
+  const [isError, setisError] = useState<boolean>(false);
+  const [searchImage, setSearchImage] = useState<string>("");
+  const [imagesData, setimagesData] = useState<ImageData[]>([]);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<string>("");
+  const [totalImageOnApi, setTotalImageOnApi] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const IMAGE_PER_PAGE = 12;
 
   
@@ -30,27 +42,25 @@ function App() {
   };
   
 
-  // Memo requestProductsByQuery
-  const fetchData = async (searchImage, currentPage) => {
-    if (searchImage) {
-      try {
-        setisError(false);
-        setisLoad(true);
-        const data = await requestProductsByQuery(searchImage, IMAGE_PER_PAGE, currentPage);
-        setimagesData(previmagesData => [...previmagesData, ...data.results]); 
-        setTotalImageOnApi(data.total);
-      } catch (error) {
-        setisError(true);
-      } finally {
-        setisLoad(false);
+  // // Memo requestProductsByQuery
+    const fetchData = async (searchImage, currentPage): Promise<void> => {
+      if (searchImage) {
+        try {
+          setisError(false);
+          setisLoad(true);
+          const data = await requestProductsByQuery(searchImage, IMAGE_PER_PAGE, currentPage);
+          setimagesData(previmagesData => [...previmagesData, ...data.results]); 
+          setTotalImageOnApi(data.total);
+          // console.log('data', data);
+          
+        } catch (error) {
+          setisError(true);
+        } finally {
+          setisLoad(false);
+        }
       }
-    }
-  };
+    };
 
-  // // Clear ImagesData when searchImage changes
-  // useEffect(() => {
-  //   setimagesData([]);
-  // }, [searchImage]);
 
   // request
   useEffect(() => {
