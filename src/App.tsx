@@ -68,8 +68,10 @@ function App() {
 
   // modal
   const onClickOnImage = (imageUrl : string): void => {
-    setSelectedImageUrl(imageUrl);
-    setModalIsOpen(true);
+    if (!modalIsOpen) {
+      setSelectedImageUrl(imageUrl);
+      setModalIsOpen(true);
+    }  
   };
 
   const closeModal = (): void => {
