@@ -8,8 +8,9 @@ import ImageGallery from './components/ImageGallery/ImageGallery';
 import ImageModal from "./components/ImageModal/ImageModal";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
-function App() {
 
+
+function App() {
 
   interface ImageData {
     id: string;
@@ -33,24 +34,25 @@ function App() {
 
   
   // searchBox
-  const onSubmit = (eventValue) => {
+  const onSubmit = (eventValue: string) => {
     if (eventValue !== searchImage) {
       setSearchImage(eventValue);
       setCurrentPage(1);
-      setimagesData([]);
+      setimagesData([]); 
     }
-  };
+};
+
   
 
   // // Memo requestProductsByQuery
-    const fetchData = async (searchImage, currentPage): Promise<void> => {
+    const fetchData = async (searchImage: string, currentPage: number): Promise<void> => {
       if (searchImage) {
         try {
           setisError(false);
           setisLoad(true);
-          const data = await requestProductsByQuery(searchImage, IMAGE_PER_PAGE, currentPage);
-          setimagesData(previmagesData => [...previmagesData, ...data.results]); 
-          setTotalImageOnApi(data.total);
+          const data:any = await requestProductsByQuery(searchImage as string, IMAGE_PER_PAGE as number, currentPage as number);
+          setimagesData((previmagesData:ImageData[]) => [...previmagesData, ...data.results]); 
+          setTotalImageOnApi(data.total as number);
           // console.log('data', data);
           
         } catch (error) {
@@ -68,19 +70,20 @@ function App() {
       fetchData(searchImage, currentPage);
     }
   }, [searchImage, currentPage]);
+  
 
   // modal
-  const onClickOnImage = (imageUrl) => {
+  const onClickOnImage = (imageUrl : string): void => {
     setSelectedImageUrl(imageUrl);
     setModalIsOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setModalIsOpen(false);
   };
 
   // load more
-  const onClickLoadMore = () => {
+  const onClickLoadMore = (): void => {
     setCurrentPage(prevPage => prevPage + 1); 
   };
 
