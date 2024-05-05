@@ -7,18 +7,25 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
-  
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
 
-    const searchInputValue = (event.target as HTMLButtonElement).form?.elements.searchInput.value.trim();
+    // const searchInputValue = (event.target as HTMLButtonElement).form?.elements.searchInput.value.trim();
+    
+    const form = (event.target as HTMLButtonElement).form;
+    if (!form) return; 
 
-    if (searchInputValue === "") {
-      toast.error("Please enter text to search for images.");
+    const searchInput = Array.from(form.elements).find(
+      (el) => el.nodeName.toLowerCase() === 'input' && el.name === 'searchInput'
+    ) as HTMLInputElement | undefined;
+
+    const searchInputValue = searchInput?.value.trim();
+    if (!searchInputValue) {
+      toast.error('Please enter text to search for images.');
       return;
     }
 
-    onSubmit(searchInputValue); 
+    onSubmit(searchInputValue);
   };
 
   return (
@@ -39,3 +46,4 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
 };
 
 export default SearchBar;
+
