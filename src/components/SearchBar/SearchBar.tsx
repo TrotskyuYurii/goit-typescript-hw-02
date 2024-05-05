@@ -10,13 +10,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
 
-    // const searchInputValue = (event.target as HTMLButtonElement).form?.elements.searchInput.value.trim();
-    
     const form = (event.target as HTMLButtonElement).form;
-    if (!form) return; 
+    if (!form) return; // Перевірка на наявність форми
 
     const searchInput = Array.from(form.elements).find(
-      (el) => el.nodeName.toLowerCase() === 'input' && el.name === 'searchInput'
+      (el) =>
+        el instanceof HTMLInputElement &&
+        el.nodeName.toLowerCase() === 'input' &&
+        el.name === 'searchInput'
     ) as HTMLInputElement | undefined;
 
     const searchInputValue = searchInput?.value.trim();
@@ -46,4 +47,3 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
 };
 
 export default SearchBar;
-
